@@ -1,1 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incipit Genie Pro 5.0 - Patent Pending | Academic Source Notes Generator</title>
+    <meta name="description" content="Incipit Genie Pro converts your endnotes into blind notes, adding lead-in text from your document and automatic page markers for easy reference. Patent Pending.">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --background: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            backdrop-filter: blur(10px);
+            margin-right: 10px;
+        }
+
+        .patent-badge {
+            display: inline-block;
+            background: rgba(255,215,0,0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            backdrop-filter: blur(10px);
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .file-upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--secondary-color);
+            background: #f0f8ff;
+        }
+
+        .file-upload-area.drag-over {
+            border-color: var(--success-color);
+            background: #e8f5e9;
+        }
+
+        .file-upload-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #e1e8ed;
+            color: var(--text-primary);
+            margin-right: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d8dd;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e8f4fd 0%, #d1e8ff 100%);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box-title {
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .pro-tip-box {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border-left: 4px solid var(--warning-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .pro-tip-title {
+            font-weight: 700;
+            color: #e65100;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .progress-container {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .progress-container.active {
+            display: block;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e1e8ed;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: var(--text-secondary);
+        }
+
+        .result-area {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .result-area.active {
+            display: block;
+        }
+
+        .result-area.success {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        }
+
+        .result-area.error {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+        }
+
+        .result-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: var(--success-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #219a52;
+            transform: translateY(-2px);
+        }
+
+        .footer-note {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+
+        .legal-notice {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 0.85rem;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .legal-notice a {
+            color: #ffd54f;
+            text-decoration: none;
+        }
+
+        .legal-notice a:hover {
+            text-decoration: underline;
+        }
+
+        .legal-separator {
+            margin: 0 10px;
+            opacity: 0.5;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e1e8ed;
+        }
+
+        .modal-content h3 {
+            color: var(--secondary-color);
+            margin: 20px 0 10px 0;
+        }
+
+        .modal-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .modal-content li {
+            margin-bottom: 5px;
+        }
+
+        .modal-close {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .file-selected {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .file-selected.show {
+            display: flex;
+        }
+
+        .file-selected-icon {
+            font-size: 24px;
+        }
+
+        .file-selected-name {
+            font-weight: 600;
+            color: var(--success-color);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .main-card {
+                padding: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-secondary {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ Incipit Genie Pro™</h1>
+            <span class="version-badge">Version 5.0</span>
+            <span class="patent-badge">🔒 Patent Pending</span>
+            <p>Transform your endnotes into elegant source notes with automatic incipit phrases and dynamic page references</p>
+        </div>
+
+        <div class="main-card">
+            <form id="convertForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>📄 Upload Your Word Document</label>
+                    <div class="file-upload-area" id="dropZone">
+                        <div class="file-upload-icon">📁</div>
+                        <p><strong>Drop your .docx file here</strong></p>
+                        <p style="color: var(--text-secondary); margin-top: 5px;">or click to browse</p>
+                        <input type="file" id="file" name="file" accept=".docx" style="display: none;" required>
+                    </div>
+                    <div class="file-selected" id="fileSelected">
+                        <span class="file-selected-icon">✅</span>
+                        <span class="file-selected-name" id="fileName"></span>
+                    </div>
+                </div>
+
+                <div class="button-group" id="buttonGroup">
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+                    <button type="submit" class="btn btn-primary" id="convertBtn">Convert Document</button>
+                </div>
+            </form>
+
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Processing your document...</div>
+            </div>
+
+            <div class="result-area" id="resultArea">
+                <div class="result-icon" id="resultIcon"></div>
+                <h3 id="resultTitle"></h3>
+                <p id="resultMessage"></p>
+                <a href="#" class="download-btn" id="downloadBtn" style="display: none;">Download Converted Document</a>
+            </div>
+
+            <div class="info-box">
+                <div class="info-box-title">📝 How It Works</div>
+                Incipit Genie extracts the first few words from each endnote reference location in your document and prepends them to your notes. Dynamic page markers are inserted so you can always find exactly where each note belongs. <strong>URLs in your citations are preserved as clickable hyperlinks.</strong> <strong>Note:</strong> Original citation formatting is always preserved.
+            </div>
+
+            <div class="pro-tip-box">
+                <span class="pro-tip-title">💡 Pro Tip: Update Page Numbers</span>
+                After opening your converted document in Word:
+                <ol style="margin: 10px 0 0 20px;">
+                    <li>Press <strong>Ctrl+A</strong> (Windows) or <strong>Cmd+A</strong> (Mac) to select all</li>
+                    <li>Press <strong>F9</strong> to update all page number fields</li>
+                    <li>Page numbers will automatically adjust when you edit the document!</li>
+                </ol>
+            </div>
+
+            <div class="footer-note">
+                Incipit Genie Pro™ 5.0 - Created by Eric Caplan
+            </div>
+        </div>
+    </div>
+
+    <div class="legal-notice">
+        <strong>© 2025 Incipit Genie Pro™</strong>
+        <span class="legal-separator">|</span>
+        <strong>Patent Pending</strong>
+        <span class="legal-separator">|</span>
+        Protected under 17 U.S.C. §1201 (DMCA) & §106 (Copyright)
+        <span class="legal-separator">|</span>
+        <a href="#" onclick="showTerms(); return false;">Terms of Use</a>
+        <span class="legal-separator">|</span>
+        <a href="#" onclick="showPrivacy(); return false;">Privacy Policy</a>
+        <br>
+        <small style="opacity: 0.8;">Unauthorized reproduction, reverse engineering, or distribution is strictly prohibited</small>
+    </div>
+
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <h2>Terms of Use - Incipit Genie Pro™</h2>
+            <p><strong>Effective Date:</strong> December 2025</p>
+            
+            <h3>1. Acceptance of Terms</h3>
+            <p>By using Incipit Genie Pro™, you agree to these Terms of Use and acknowledge that this is proprietary, patent-pending technology.</p>
+            
+            <h3>2. Intellectual Property Rights</h3>
+            <p>Incipit Genie Pro™ and all associated algorithms, processes, and code are the exclusive property of the developer and are protected by:</p>
+            <ul>
+                <li>• U.S. Patent Application (Patent Pending)</li>
+                <li>• Copyright law (17 U.S.C. §106)</li>
+                <li>• DMCA protections (17 U.S.C. §1201)</li>
+                <li>• Trade secret law</li>
+            </ul>
+            
+            <h3>3. Prohibited Activities</h3>
+            <p>You expressly agree NOT to:</p>
+            <ul>
+                <li>• Reverse engineer, decompile, or disassemble the service</li>
+                <li>• Copy, modify, or create derivative works</li>
+                <li>• Attempt to discover source code or algorithms</li>
+                <li>• Use automated tools to scrape or mass-process documents</li>
+                <li>• Redistribute or resell the service</li>
+                <li>• Remove any proprietary notices</li>
+            </ul>
+            
+            <h3>4. Service Usage</h3>
+            <p>• This service is provided "as is" for academic and research purposes</p>
+            <p>• We reserve the right to limit usage or terminate access</p>
+            <p>• Maximum 20 document conversions per day per user</p>
+            
+            <h3>5. Privacy & Data</h3>
+            <p>• Documents are processed temporarily and not stored permanently</p>
+            <p>• We log usage data for security and improvement purposes</p>
+            <p>• We do not share your documents with third parties</p>
+            
+            <h3>6. Disclaimer of Warranties</h3>
+            <p>THE SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED.</p>
+            
+            <h3>7. Limitation of Liability</h3>
+            <p>IN NO EVENT SHALL THE DEVELOPER BE LIABLE FOR ANY DAMAGES ARISING FROM USE OF THIS SERVICE.</p>
+            
+            <h3>8. Legal Action</h3>
+            <p>Violation of these terms may result in:</p>
+            <ul>
+                <li>• Immediate termination of access</li>
+                <li>• Legal action for damages</li>
+                <li>• Injunctive relief</li>
+                <li>• Criminal prosecution under DMCA</li>
+            </ul>
+            
+            <h3>9. Contact</h3>
+            <p>For licensing inquiries or questions about these terms, contact the developer.</p>
+            
+            <button class="modal-close" onclick="closeTerms()">I Understand</button>
+        </div>
+    </div>
+
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <h2>Privacy Policy - Incipit Genie Pro™</h2>
+            <p><strong>Last Updated:</strong> December 2025</p>
+            
+            <h3>1. Information We Collect</h3>
+            <p>• Document content (temporarily, for processing only)</p>
+            <p>• IP addresses (for security and rate limiting)</p>
+            <p>• Browser information (for compatibility)</p>
+            <p>• Usage statistics (anonymous)</p>
+            
+            <h3>2. How We Use Information</h3>
+            <p>• To provide the citation conversion service</p>
+            <p>• To prevent abuse and ensure security</p>
+            <p>• To improve service quality</p>
+            <p>• To enforce usage limits</p>
+            
+            <h3>3. Data Retention</h3>
+            <p>• Documents: Deleted immediately after processing</p>
+            <p>• Logs: Retained for 30 days</p>
+            <p>• No permanent storage of user documents</p>
+            
+            <h3>4. Data Security</h3>
+            <p>• Encrypted transmission (HTTPS)</p>
+            <p>• Temporary processing only</p>
+            <p>• No third-party access to documents</p>
+            
+            <h3>5. Third-Party Services</h3>
+            <p>• Hosted on Railway (infrastructure)</p>
+            <p>• No document content shared with third parties</p>
+            
+            <h3>6. Your Rights</h3>
+            <p>• Documents are not stored, so no retrieval is possible</p>
+            <p>• You may request deletion of usage logs</p>
+            <p>• Opt out of service at any time</p>
+            
+            <h3>7. Changes to Privacy Policy</h3>
+            <p>We may update this policy periodically. Continued use constitutes acceptance of changes.</p>
+            
+            <button class="modal-close" onclick="closePrivacy()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('file');
+        const fileSelected = document.getElementById('fileSelected');
+        const convertForm = document.getElementById('convertForm');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const resultArea = document.getElementById('resultArea');
+        const resultIcon = document.getElementById('resultIcon');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultMessage = document.getElementById('resultMessage');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const buttonGroup = document.getElementById('buttonGroup');
+        const convertBtn = document.getElementById('convertBtn');
+
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Highlight drop zone
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('drag-over'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('drag-over'), false);
+        });
+
+        // Handle dropped files
+        dropZone.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].name.endsWith('.docx')) {
+                fileInput.files = files;
+                showSelectedFile(files[0].name);
+            }
+        });
+
+        // Handle click to upload
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                showSelectedFile(e.target.files[0].name);
+            }
+        });
+
+        function showSelectedFile(name) {
+            document.getElementById('fileName').textContent = name;
+            fileSelected.classList.add('show');
+        }
+
+        // Form submission
+        convertForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!fileInput.files.length) {
+                alert('Please select a file first.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            // Show progress
+            progressContainer.classList.add('active');
+            resultArea.classList.remove('active', 'success', 'error');
+            convertBtn.disabled = true;
+
+            // Simulate progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+                progressFill.style.width = progress + '%';
+            }, 200);
+
+            try {
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                clearInterval(progressInterval);
+                progressFill.style.width = '100%';
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const contentDisposition = response.headers.get('Content-Disposition');
+                    let filename = 'converted_document.docx';
+                    if (contentDisposition) {
+                        const match = contentDisposition.match(/filename="?([^"]+)"?/);
+                        if (match) filename = match[1];
+                    }
+
+                    // Show success result
+                    setTimeout(() => {
+                        progressContainer.classList.remove('active');
+                        resultArea.classList.remove('error');
+                        resultArea.classList.add('active', 'success');
+                        resultIcon.textContent = '✅';
+                        resultTitle.textContent = 'Conversion Complete!';
+                        resultMessage.textContent = 'Your document has been converted to incipit format.';
+                        downloadBtn.href = url;
+                        downloadBtn.download = filename;
+                        downloadBtn.style.display = 'inline-block';
+                        convertBtn.disabled = false;
+                    }, 500);
+
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Conversion failed');
+                }
+
+            } catch (error) {
+                clearInterval(progressInterval);
+                progressContainer.classList.remove('active');
+                resultArea.classList.add('active', 'error');
+                resultIcon.textContent = '❌';
+                resultTitle.textContent = 'Conversion Failed';
+                resultMessage.textContent = error.message;
+                downloadBtn.style.display = 'none';
+                convertBtn.disabled = false;
+            }
+        });
+
+        function resetForm() {
+            convertForm.reset();
+            fileSelected.classList.remove('show');
+            progressContainer.classList.remove('active');
+            resultArea.classList.remove('active', 'error', 'success');
+            progressFill.style.width = '0%';
+            convertBtn.disabled = false;
+        }
+
+        // Modal functions
+        function showTerms() {
+            document.getElementById('termsModal').style.display = 'block';
+        }
+
+        function closeTerms() {
+            document.getElementById('termsModal').style.display = 'none';
+        }
+
+        function showPrivacy() {
+            document.getElementById('privacyModal').style.display = 'block';
+        }
+
+        function closePrivacy() {
+            document.getElementById('privacyModal').style.display = 'none';
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
